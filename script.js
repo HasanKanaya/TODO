@@ -91,8 +91,8 @@ function addElement(x) {
     div.appendChild(divText);
     let delButton = document.createElement("button");
     delButton.className = "btn btn-outline-secondary px-sm-4 px-3 del";
-    delButton.setAttribute("type", "button");
     delButton.appendChild(document.createTextNode("Delete"));
+    delButton.setAttribute("type", "button");
     div.appendChild(delButton);
     box.appendChild(div);
   });
@@ -113,3 +113,73 @@ function toggleStatusTaskWith(taskId) {
   }
   addDataToLocal(tasks);
 }
+
+// Settings
+// Language
+
+// Local Storage
+if (localStorage.getItem("language") != null) {
+  let langInput = document.querySelector(".input-group .form-control");
+  let allButtons = document.querySelectorAll(".btn");
+  let inputButtons = document.querySelectorAll(".input-group button");
+  if (localStorage.getItem("language") == "ar") {
+    allButtons.forEach((e) => {
+      e.classList.add("btnAr");
+      e.innerHTML = "حذف";
+    });
+    document.body.classList.add("arText");
+    langInput.classList.add("arText");
+    langInput.setAttribute("placeholder", "اضافة مهمة جديدة");
+    inputButtons[0].innerHTML = "اضافة";
+    inputButtons[1].innerHTML = "حذف";
+    document.querySelector(".settings").innerHTML = "اعدادات";
+  } else {
+    allButtons.forEach((e) => {
+      e.classList.remove("btnAr");
+      e.innerHTML = "Delete";
+    });
+    document.body.classList.remove("arText");
+    langInput.classList.remove("arText");
+    langInput.setAttribute("placeholder", "Add a new task");
+    inputButtons[0].innerHTML = "Add";
+    inputButtons[1].innerHTML = "Clear";
+    document.querySelector(".settings").innerHTML = "Settings";
+  }
+}
+// Local Storage
+let lang = document.querySelectorAll(".language p");
+let langInput = document.querySelector(".input-group .form-control");
+let allButtons = document.querySelectorAll(".btn");
+let inputButtons = document.querySelectorAll(".input-group button");
+lang[1].addEventListener("click", () => {
+  localStorage.setItem("language", "ar");
+  allButtons.forEach((e) => {
+    e.classList.add("btnAr");
+    e.innerHTML = "حذف";
+  });
+  document.body.classList.add("arText");
+  langInput.classList.add("arText");
+  langInput.setAttribute("placeholder", "اضافة مهمة جديدة");
+  inputButtons[0].innerHTML = "اضافة";
+  inputButtons[1].innerHTML = "حذف";
+  document.querySelector(".settings").innerHTML = "اعدادات";
+  location.reload();
+});
+
+lang[0].addEventListener("click", () => {
+  localStorage.setItem("language", "en");
+  allButtons.forEach((e) => {
+    e.classList.remove("btnAr");
+    e.innerHTML = "Delete";
+  });
+  document.body.classList.remove("arText");
+  langInput.classList.remove("arText");
+  langInput.setAttribute("placeholder", "Add a new task");
+  inputButtons[0].innerHTML = "Add";
+  inputButtons[1].innerHTML = "Clear";
+  document.querySelector(".settings").innerHTML = "Settings";
+  location.reload();
+});
+// Language
+
+// Settings

@@ -9,4 +9,11 @@
 .done {
   opacity: 0.4;
 }
-/*# sourceMappingURL=style.css.map */
+
+/* Settings */
+.btnAr {
+  order: -1;
+}
+.arText {
+  text-align: right;
+}
