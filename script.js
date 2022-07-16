@@ -12,23 +12,47 @@ addButton.addEventListener("click", function () {
 });
 
 clearButton.addEventListener("click", function () {
-  swal({
-    title: "Are you sure?",
-    text: "All your tasks will be delete it !!",
-    icon: "warning",
-    buttons: true,
-    dangerMode: true,
-  }).then((willDelete) => {
-    if (willDelete) {
-      swal("All Your tasks have been delete it. Reload the page please", {
-        icon: "success",
-      });
-      window.localStorage.clear();
-      // location.reload();
-    } else {
-      swal("Your tasks have not been delete it");
-    }
-  });
+  if (localStorage.getItem("language") == "ar") {
+    swal({
+      title: "هل انت متأكد",
+      text: "!!جميع المهام سوف يتم حذفهم ",
+      icon: "warning",
+      buttons: ["كلا", "نعم"],
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal("جميع المهام تم حذفهم,اعد تحميل الصفحة", {
+          icon: "success",
+          buttons: ["نعم"],
+        });
+        window.localStorage.clear();
+        localStorage.setItem("language", "ar");
+      } else {
+        swal("لم يتم حذف المهام", {
+          icon: "success",
+          buttons: ["نعم"],
+        });
+      }
+    });
+  } else {
+    swal({
+      title: "Are you sure?",
+      text: "All your tasks will be delete it !!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal("All Your tasks have been delete it. Reload the page please", {
+          icon: "success",
+        });
+        window.localStorage.clear();
+        localStorage.setItem("language", "en");
+      } else {
+        swal("Your tasks have not been delete it");
+      }
+    });
+  }
 });
 
 if (localStorage.getItem("tasks")) {
@@ -90,8 +114,13 @@ function addElement(x) {
     divText.appendChild(document.createTextNode(task.title));
     div.appendChild(divText);
     let delButton = document.createElement("button");
-    delButton.className = "btn btn-outline-secondary px-sm-4 px-3 del";
-    delButton.appendChild(document.createTextNode("Delete"));
+    if (localStorage.getItem("language") == "ar") {
+      delButton.className = "btn btn-outline-secondary px-sm-4 px-3 del btnAr";
+      delButton.appendChild(document.createTextNode("حذف"));
+    } else {
+      delButton.className = "btn btn-outline-secondary px-sm-4 px-3 del";
+      delButton.appendChild(document.createTextNode("Delete"));
+    }
     delButton.setAttribute("type", "button");
     div.appendChild(delButton);
     box.appendChild(div);
